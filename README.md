@@ -112,38 +112,98 @@ NetworkFIleSystem/
 ### 1. Build Components
 
 ```bash
-make ns   # Build Naming Server
-make ss   # Build Storage Server
-make cl   # Build Client
+make all    # Builds all components: Naming Server, Storage Server, and Client
+```
+
+Or build individually:
+```bash
+make naming_server    # Build only Naming Server
+make storage_server   # Build only Storage Server  
+make client          # Build only Client
 ```
 
 ### 2. Start Servers
 
 - **Naming Server:**  
   ```bash
-  ./naming_server
+  make ns
   ```
+  The system will prompt you to enter a port number. Example:
+  ```
+  Enter port number for Naming Server:
+  5000
+  ```
+
 - **Storage Server:**  
   ```bash
-  ./storage_server <IP OF SERVER> <ROOT_PATH>
+  make ss
   ```
-  (Run multiple instances for more servers.)
+  The system will prompt you to enter the root path. Example:
+  ```
+  Enter root path for Storage Server:
+  /home/charan/nfs_storage
+  ```
+  > **Note:** Use absolute paths for the root directory.  
+  > Run this command multiple times in different terminals for multiple Storage Servers.
 
 ### 3. Start Client
 
 - **Client:**  
   ```bash
-  ./client <IP OF NAMING SERVER>
+  make cl
+  ```
+  The system will prompt you to enter the Naming Server IP address. Example:
+  ```
+  Enter IP address of Naming Server:
+  127.0.0.1
   ```
 
-### 4. Clean Backups
+### 4. Alternative Manual Execution
+
+You can also run the executables directly:
+
+- **Naming Server:**
+  ```bash
+  ./naming_server <PORT>
+  ```
+  Example: `./naming_server 5000`
+
+- **Storage Server:**
+  ```bash
+  ./storage_server <IP> <ROOT_PATH>
+  ```
+  Example: `./storage_server 127.0.0.1 /home/charan/nfs_storage`
+
+- **Client:**
+  ```bash
+  ./client <NAMING_SERVER_IP>
+  ```
+  Example: `./client 127.0.0.1`
+
+### 5. Clean Backups
 
 To remove backup folders:
 ```bash
-rm -rf ./backupforss
+rm -rf ./backupfolderforss
+```
+
+### 6. Clean Build Files
+
+To remove all executables and object files:
+```bash
+make clean
 ```
 
 ---
+
+**Tips:**
+- Always use absolute paths for Storage Server root directories to avoid confusion.
+- Ensure the port you choose for the Naming Server is open and not in use.
+- For distributed deployment across multiple machines, use the actual IP addresses instead of 127.0.0.1.
+- If you encounter issues, check the logs in `log.txt` for troubleshooting.
+- Each Storage Server should have a unique root path.
+
+--- 
 
 ## Usage & Commands
 

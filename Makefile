@@ -20,53 +20,58 @@ all: $(TARGETS)
 
 # Naming Server executable
 naming_server: $(OBJ_NAMING)
-	$(CC) $(CFLAGS) -o naming_server $(OBJ_NAMING)
+    $(CC) $(CFLAGS) -o naming_server $(OBJ_NAMING)
 
 # Storage Server executable
 storage_server: $(OBJ_STORAGE)
-	$(CC) $(CFLAGS) -o storage_server $(OBJ_STORAGE)
+    $(CC) $(CFLAGS) -o storage_server $(OBJ_STORAGE)
 
 # Client executable
 client: $(OBJ_CLIENT)
-	$(CC) $(CFLAGS) -o client $(OBJ_CLIENT)
+    $(CC) $(CFLAGS) -o client $(OBJ_CLIENT)
 
 # Compile naming_server.c
 naming_server.o: naming_server.c helper.h tries.h ErrorCodes.h
-	$(CC) $(CFLAGS) -c naming_server.c
+    $(CC) $(CFLAGS) -c naming_server.c
 
 # Compile storage_server.c
 storage_server.o: storage_server.c helper.h tries.h ErrorCodes.h lock.h
-	$(CC) $(CFLAGS) -c storage_server.c
+    $(CC) $(CFLAGS) -c storage_server.c
 
 # Compile client.c
 client.o: client.c helper.h ErrorCodes.h
-	$(CC) $(CFLAGS) -c client.c
+    $(CC) $(CFLAGS) -c client.c
 
 # Compile helper.c
 helper.o: helper.c helper.h ErrorCodes.h
-	$(CC) $(CFLAGS) -c helper.c
+    $(CC) $(CFLAGS) -c helper.c
 
 # Compile tries.c
 tries.o: tries.c tries.h ErrorCodes.h
-	$(CC) $(CFLAGS) -c tries.c
+    $(CC) $(CFLAGS) -c tries.c
 
-# Compile tries.c
+# Compile lock.c
 lock.o: lock.c lock.h ErrorCodes.h
-	$(CC) $(CFLAGS) -c lock.c
+    $(CC) $(CFLAGS) -c lock.c
 
 # Clean up
 clean:
-	rm -f $(TARGETS) *.o
+    rm -f $(TARGETS) *.o
+
+.PHONY: all clean ns ss cl
 
 # Run Naming Server
 ns: naming_server
-	rm -rf ./backupfolderforss
-	./naming_server $(PORT)
+    rm -rf ./backupfolderforss
+    @echo "Enter port number for Naming Server:"
+    @read PORT; ./naming_server $$PORT
 
 # Run Storage Server
 ss: storage_server
-	./storage_server $(IPADD) ./mouli
+    @echo "Enter root path for Storage Server:"
+    @read ROOT_PATH; ./storage_server $(IPADD) "$$ROOT_PATH"
 
 # Run Client
 cl: client
-	./client $(IPADD)
+    @echo "Enter IP address of Naming Server:"
+    @read NS_IP; ./client $$NS_IP

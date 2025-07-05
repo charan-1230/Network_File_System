@@ -394,7 +394,7 @@ int main(int argc, char *argv[]) {
             path_for_write = strtok(tmpdup, " ");
             path_for_write = strtok(NULL, " ");
             path_for_write = strtok(NULL, " ");
-            // free(tmpdup); // Avoid memory leak   RUDRA
+            // free(tmpdup); // Avoid memory leak   
         }
 
         // Send command to Naming Server
