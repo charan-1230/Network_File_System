@@ -1,0 +1,45 @@
+# Ignore build directories
+cmake-build-*/
+
+# Ignore CLion project files
+.idea/
+gr/
+foldertest/
+/testfolder
+backupfolderforss/
+backupfolderforss/
+
+gr1/
+gr2/
+gr3/
+
+# Ignore compiled object files and executables
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+*.dylib
+
+# Ignore temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+*.orig
+
+# Ignore generated files
+*.d
+*.dep
+*.dSYM/
+*.DS_Store
+
+# Ignore user-specific files
+*.user
+*.user.*
+naming_server
+storage_server
+client
+indexed_tries
